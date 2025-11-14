@@ -1,5 +1,20 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
+interface Todo {
+  id: string;
+  title: string;
+  description?: string;
+  completed: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface HealthResponse {
+  status: string;
+  timestamp: string;
+  database: string;
+}
+
 export class ApiClient {
   private baseUrl: string;
 
@@ -32,15 +47,15 @@ export class ApiClient {
 
   // Todos
   async getTodos() {
-    return this.request<any[]>('/todos');
+    return this.request<Todo[]>('/todos');
   }
 
   async getTodo(id: string) {
-    return this.request<any>(`/todos/${id}`);
+    return this.request<Todo>(`/todos/${id}`);
   }
 
   async createTodo(data: { title: string; description?: string; completed?: boolean }, token?: string) {
-    return this.request<any>('/todos', {
+    return this.request<Todo>('/todos', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: token ? { Authorization: `Bearer ${token}` } : {},
@@ -48,7 +63,7 @@ export class ApiClient {
   }
 
   async updateTodo(id: string, data: Partial<{ title: string; description?: string; completed?: boolean }>, token?: string) {
-    return this.request<any>(`/todos/${id}`, {
+    return this.request<Todo>(`/todos/${id}`, {
       method: 'PUT',
       body: JSON.stringify(data),
       headers: token ? { Authorization: `Bearer ${token}` } : {},
@@ -64,7 +79,7 @@ export class ApiClient {
 
   // Health
   async health() {
-    return this.request<{ status: string }>('/health');
+    return this.request<HealthResponse>('/health');
   }
 }
 
