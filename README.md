@@ -161,6 +161,58 @@ pnpm test:watch
 pnpm test:cov
 ```
 
+## ⚡ Remote Caching
+
+Turborepo supports remote caching to share build artifacts across your team and CI/CD pipelines, significantly speeding up builds.
+
+### Setup (Optional)
+
+Remote caching is **optional** and requires a Vercel account or other remote cache provider. If not configured, Turborepo will use local caching only.
+
+To enable remote caching with Vercel:
+
+1. Sign up for a free account at [vercel.com](https://vercel.com)
+2. Link your repository to Vercel or create a new project
+3. Get your team slug and authentication token from Vercel dashboard
+4. Set the following environment variables:
+
+```bash
+export TURBO_TEAM="your-team-slug"
+export TURBO_TOKEN="your-auth-token"
+```
+
+For persistent configuration, add these to your shell profile (`.bashrc`, `.zshrc`, etc.) or create a `.env` file:
+
+```bash
+# .env (do not commit this file)
+TURBO_TEAM=your-team-slug
+TURBO_TOKEN=your-auth-token
+```
+
+### Verification
+
+After setting up remote caching, you can verify cache hits:
+
+```bash
+# First build (cache miss)
+pnpm build
+
+# Second build (should show cache hits)
+pnpm build
+```
+
+Look for output like:
+```
+• Remote caching enabled
+cache hit, replaying logs [hash]
+```
+
+### CI/CD
+
+For GitHub Actions or other CI environments, add `TURBO_TEAM` and `TURBO_TOKEN` as repository secrets. The existing configuration will automatically use remote caching when these variables are present.
+
+**Note:** Never commit `TURBO_TOKEN` or any secrets to version control.
+
 ## 🚢 Deployment
 
 Each app includes a Dockerfile for containerized deployment:
