@@ -17,15 +17,10 @@ program
 program
   .command('generate')
   .description('Generate code from an app specification')
-  .option('-s, --spec <path>', 'Path to the spec file (YAML or JSON)')
-  .option('--dry-run', 'Show what would be generated without writing files')
+  .requiredOption('-s, --spec <path>', 'Path to the spec file (YAML or JSON)')
+  .option('--dry-run', 'Show what would be generated without writing files', false)
   .action(async (options) => {
     try {
-      if (!options.spec) {
-        console.error('Error: --spec option is required');
-        process.exit(1);
-      }
-
       const specPath = path.resolve(process.cwd(), options.spec);
       
       if (!fs.existsSync(specPath)) {
