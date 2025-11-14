@@ -1,0 +1,26 @@
+# Dockerfile for BFF
+FROM node:20-alpine AS base
+RUN npm install -g pnpm@8.15.0
+
+FROM base AS deps
+WORKDIR /app
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY apps/bff/package.json ./apps/bff/
+RUN pnpm install --frozen-lockfile
+
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+RUN pnpm --filter @agent-monorepo/bff build
+
+FROM base AS runner
+WORKDIR /app
+ENV NODE_ENV production
+
+COPY --from=builder /app/apps/bff/dist ./dist
+COPY --from=builder /app/apps/bff/node_modules ./node_modules
+
+EXPOSE 3002
+
+CMD ["node", "dist/main"]

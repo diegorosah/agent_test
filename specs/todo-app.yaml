@@ -1,0 +1,75 @@
+name: Todo App
+description: A simple todo application with user authentication
+version: 0.1.0
+
+entities:
+  - name: Todo
+    fields:
+      - name: title
+        type: string
+        required: true
+      - name: description
+        type: string
+        required: false
+      - name: completed
+        type: boolean
+        required: true
+      - name: userId
+        type: string
+        required: true
+    timestamps: true
+
+pages:
+  - path: /todos
+    name: TodoList
+    type: list
+    entity: Todo
+    protected: true
+  - path: /todos/new
+    name: CreateTodo
+    type: form
+    entity: Todo
+    protected: true
+  - path: /todos/:id
+    name: TodoDetail
+    type: detail
+    entity: Todo
+    protected: true
+
+endpoints:
+  - path: /todos
+    method: GET
+    entity: Todo
+    type: list
+    protected: true
+  - path: /todos
+    method: POST
+    entity: Todo
+    type: create
+    protected: true
+  - path: /todos/:id
+    method: GET
+    entity: Todo
+    type: get
+    protected: true
+  - path: /todos/:id
+    method: PATCH
+    entity: Todo
+    type: update
+    protected: true
+  - path: /todos/:id
+    method: DELETE
+    entity: Todo
+    type: delete
+    protected: true
+
+auth:
+  providers:
+    - github
+    - google
+  defaultProvider: github
+
+stack:
+  database: postgresql
+  orm: prisma
+  cssFramework: tailwind

@@ -4,7 +4,7 @@ import { IsString, IsBoolean, IsOptional } from 'class-validator';
 export class CreateTodoDto {
   @ApiProperty({ example: 'Buy groceries' })
   @IsString()
-  title: string;
+  title!: string;
 
   @ApiProperty({ example: 'Milk, eggs, bread', required: false })
   @IsString()
@@ -36,23 +36,23 @@ export class UpdateTodoDto {
 
 export class TodoResponseDto {
   @ApiProperty()
-  id: string;
+  id!: string;
 
   @ApiProperty()
-  title: string;
+  title!: string;
 
   @ApiProperty({ required: false })
-  description?: string;
+  description?: string | null;
 
   @ApiProperty()
-  completed: boolean;
+  completed!: boolean;
 
   @ApiProperty()
-  userId: string;
+  userId!: string;
 
   @ApiProperty()
-  createdAt: Date;
+  createdAt!: Date;
 
   @ApiProperty()
-  updatedAt: Date;
+  updatedAt!: Date;
 }
