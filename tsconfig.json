@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@monorepo/shared-types": ["./packages/shared-types/src"],
+      "@monorepo/config": ["./packages/config/src"],
+      "@monorepo/ui": ["./packages/ui/src"]
+    }
+  },
+  "files": [],
+  "references": [
+    { "path": "./apps/web" },
+    { "path": "./apps/api" },
+    { "path": "./apps/bff" },
+    { "path": "./packages/shared-types" },
+    { "path": "./packages/config" },
+    { "path": "./packages/ui" },
+    { "path": "./agent" }
+  ]
+}
