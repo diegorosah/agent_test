@@ -5,7 +5,7 @@ export class CreateTodoDto {
   @ApiProperty({ description: 'The title of the todo' })
   @IsString()
   @IsNotEmpty()
-  title: string;
+  title!: string;
 
   @ApiProperty({ description: 'The description of the todo', required: false })
   @IsString()

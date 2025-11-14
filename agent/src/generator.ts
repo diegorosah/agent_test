@@ -1,6 +1,3 @@
-import { promises as fs } from 'fs';
-import { join } from 'path';
-
 interface Spec {
   name: string;
   description?: string;

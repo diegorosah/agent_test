@@ -15,7 +15,7 @@
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
     "clean": "turbo run clean && rm -rf node_modules",
-    "agent:generate": "tsx agent/src/cli.ts",
+    "agent:generate": "tsx agent/src/cli.ts generate",
     "gen:secret": "tsx scripts/gen-secret.ts",
     "docker:up": "docker-compose -f infra/docker-compose.yml up -d",
     "docker:down": "docker-compose -f infra/docker-compose.yml down",
