@@ -68,3 +68,15 @@ docker-data/
 tmp/
 temp/
 *.tmp
+
+# Build artifacts - keep source clean
+apps/*/dist/
+apps/*/build/
+apps/*/.next/
+apps/*/out/
+apps/*/src/**/*.js
+apps/*/src/**/*.js.map
+apps/*/src/**/*.d.ts
+apps/*/src/**/*.d.ts.map
+!apps/*/src/**/*.test.js
+!apps/*/src/**/*.spec.js

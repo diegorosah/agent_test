@@ -2,7 +2,6 @@ import { AppSpec, Entity } from '../schema/app-spec';
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
 import { join } from 'path';
 import { render } from 'ejs';
-import { readFileSync } from 'fs';
 
 export interface GeneratorOptions {
   dryRun: boolean;
@@ -238,7 +237,7 @@ export class ${entityName}Module {}
 `;
   }
 
-  private async generateNextJSPage(page: any, spec: AppSpec): Promise<void> {
+  private async generateNextJSPage(page: any, _spec: AppSpec): Promise<void> {
     // Simplified page generation
     const content = `export default function ${page.name}Page() {
   return (
