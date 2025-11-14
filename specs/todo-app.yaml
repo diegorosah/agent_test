@@ -1,0 +1,103 @@
+name: todo-app
+description: A simple Todo application with user authentication
+version: 1.0.0
+
+entities:
+  - name: Todo
+    fields:
+      - name: title
+        type: string
+        required: true
+      - name: description
+        type: string
+        required: false
+      - name: completed
+        type: boolean
+        required: true
+        default: false
+      - name: userId
+        type: relation
+        required: false
+        relation:
+          model: User
+          type: one-to-many
+    timestamps: true
+
+  - name: User
+    fields:
+      - name: email
+        type: string
+        required: true
+        unique: true
+      - name: name
+        type: string
+        required: false
+      - name: image
+        type: string
+        required: false
+    timestamps: true
+
+pages:
+  - name: TodoList
+    route: /todos
+    type: list
+    entity: Todo
+    protected: true
+  
+  - name: TodoDetail
+    route: /todos/[id]
+    type: detail
+    entity: Todo
+    protected: true
+  
+  - name: CreateTodo
+    route: /todos/new
+    type: form
+    entity: Todo
+    protected: true
+
+endpoints:
+  - path: /todos
+    method: GET
+    entity: Todo
+    protected: false
+    description: Get all todos
+  
+  - path: /todos/:id
+    method: GET
+    entity: Todo
+    protected: false
+    description: Get a todo by id
+  
+  - path: /todos
+    method: POST
+    entity: Todo
+    protected: true
+    description: Create a new todo
+  
+  - path: /todos/:id
+    method: PUT
+    entity: Todo
+    protected: true
+    description: Update a todo
+  
+  - path: /todos/:id
+    method: DELETE
+    entity: Todo
+    protected: true
+    description: Delete a todo
+
+auth:
+  provider: nextauth
+  providers:
+    - github
+    - google
+  rbac: false
+  roles:
+    - USER
+    - ADMIN
+
+deploy:
+  web: vercel
+  api: fly
+  database: neon
