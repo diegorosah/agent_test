@@ -1,0 +1,35 @@
+{
+  "name": "monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production-ready monorepo with AI-driven full-stack code generator",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.15.0",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "agent:generate": "tsx agent/src/cli.ts generate",
+    "gen:secret": "tsx scripts/gen-secret.ts",
+    "docker:up": "docker-compose -f infra/docker-compose.yml up -d",
+    "docker:down": "docker-compose -f infra/docker-compose.yml down",
+    "db:migrate": "pnpm --filter @monorepo/api db:migrate",
+    "db:studio": "pnpm --filter @monorepo/api db:studio"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "agent"
+  ]
+}
