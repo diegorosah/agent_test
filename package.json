@@ -1,0 +1,17 @@
+{
+  "name": "agent-test-monorepo",
+  "version": "1.0.0",
+  "description": "Test repository for agent functionality",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "gen:secret": "tsx scripts/gen-secret.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
